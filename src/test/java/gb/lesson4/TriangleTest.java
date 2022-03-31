@@ -1,4 +1,4 @@
-package ru.bagmet;
+package gb.lesson4;
 
 import gb.lesson4.NotATriangleException;
 import gb.lesson4.NotValidDataException;
