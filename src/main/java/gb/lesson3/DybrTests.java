@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 
 public class DybrTests {
@@ -70,15 +71,15 @@ public class DybrTests {
         driver.get(url); //обновить страницу, чтобы обновление хранилища вступило в силу
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        webDriverWait.until(ExpectedConditions.
-                visibilityOfElementLocated(By.xpath("//a[@title='новая запись']")));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='новая запись']")));
 
         WebElement newPostButton = driver.findElement(By.xpath("//a[@title='новая запись']"));
         newPostButton.click();
         Thread.sleep(1000);
 
-        driver.findElement(By.xpath("//*[@data-testid=\"new-entry-topic\"]")).sendKeys("Test");
+        String postHeader = "Test" + new Random().nextInt(100);
 
+        driver.findElement(By.xpath("//*[@data-testid=\"new-entry-topic\"]")).sendKeys(postHeader);
         driver.findElement(By.xpath("//div[contains(@class, 'fr-view')]")).sendKeys("Test text");
 
         List<WebElement> dropdowns = driver.findElements(By.xpath("//div[contains(@class, 'blog-select__control')]"));
@@ -87,6 +88,12 @@ public class DybrTests {
 
         WebElement publish = driver.findElement(By.xpath("//button[contains(text(), 'опубликовать')]"));
         publish.click();
+
+        webDriverWait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.xpath("//a[@data-testid='blog-entry-title-link']")));
+
+        List<WebElement> posts = driver.findElements(By.xpath("//a[@data-testid='blog-entry-title-link']"));
+        posts.stream().filter(p -> p.getText().contains(postHeader)).findFirst().get().click();
 
         Thread.sleep(5000);
         driver.quit();
@@ -97,7 +104,7 @@ public class DybrTests {
         String email = "tipikov.tip@yandex.ru";
         String password = "Fortests222";
 
-//        authorization(url, email, password);
+        authorization(url, email, password);
 
         posting(url);
     }
