@@ -51,9 +51,4 @@ public class MainPageWithoutAuthorization extends BasePage{
         return new RegistrationPage(driver);
     }
 
-    public void checkTextWithoutPassword(){
-        Assertions.assertEquals("не заполнено", driver.findElement(By.xpath("//*[@id=\"password\"]/following-sibling::span/span")).getText());
-    }
-
-
 }

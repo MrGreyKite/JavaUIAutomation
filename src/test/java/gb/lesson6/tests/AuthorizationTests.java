@@ -20,12 +20,17 @@ public class AuthorizationTests extends BaseTests {
     @Test
     void authorizeWithCorrectLoginAndPassword() {
                 new MainPageWithoutAuthorization(driver).
-                        authorize(email, password).
+                        enterEmail(email).
+                        enterPassword(password).
+                        login().
                         checkSalutationSectionHeader();
     }
 
     @Test
     void authorizeWithoutPassword(){
+        new MainPageWithoutAuthorization(driver).enterEmail(email).login();
+        Assertions.assertEquals("не заполнено",
+                driver.findElement(By.xpath("//*[@id=\"password\"]/following-sibling::span/span")).getText());
 
     }
 }
