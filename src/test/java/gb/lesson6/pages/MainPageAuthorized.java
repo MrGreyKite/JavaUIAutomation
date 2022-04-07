@@ -21,6 +21,9 @@ public class MainPageAuthorized extends BasePage{
     @FindBy(xpath = "//*[@data-testid='salutation-section']//h3")
     protected WebElement salutationSectionHeader;
 
+    @FindBy(xpath = "//a[@title='новая запись']")
+    protected WebElement newPostButton;
+
     public void checkSalutationSectionHeader(){
         webDriverWait.until(ExpectedConditions.visibilityOf(salutationSection));
         Assertions.assertEquals("привет!", this.getSalutationSectionHeader().getText());
