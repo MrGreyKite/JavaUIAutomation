@@ -1,6 +1,7 @@
 package gb.lesson6.pages;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,12 @@ public class MainPageAuthorized extends BasePage{
         webDriverWait.until(ExpectedConditions.visibilityOf(salutationSection));
         Assertions.assertEquals("привет!", this.getSalutationSectionHeader().getText());
 
+    }
+
+    public NewPostPage newPostClick() {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(newPostButton));
+        newPostButton.click();
+        return new NewPostPage(driver);
     }
 
 }
