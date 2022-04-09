@@ -25,6 +25,9 @@ public class MainPageAuthorized extends BasePage{
     @FindBy(xpath = "//a[@title='новая запись']")
     protected WebElement newPostButton;
 
+    @FindBy(xpath = "//*[@data-testid='user-menu-button']")
+    protected WebElement menuButton;
+
     public void checkSalutationSectionHeader(){
         webDriverWait.until(ExpectedConditions.visibilityOf(salutationSection));
         Assertions.assertEquals("привет!", this.getSalutationSectionHeader().getText());
@@ -35,6 +38,12 @@ public class MainPageAuthorized extends BasePage{
         webDriverWait.until(ExpectedConditions.elementToBeClickable(newPostButton));
         newPostButton.click();
         return new NewPostPage(driver);
+    }
+
+    public MenuBlock openMenu() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(menuButton));
+        menuButton.click();
+        return new MenuBlock(driver);
     }
 
 }

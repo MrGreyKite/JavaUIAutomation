@@ -20,7 +20,6 @@ public class BaseTests {
 
     protected WebDriver driver;
     protected WebDriverWait webDriverWait;
-    protected Actions actions;
     protected LocalStorage localStorage;
 
 
@@ -31,6 +30,7 @@ public class BaseTests {
 
     @AfterEach
     void tearDown() {
+        localStorage.clear();
         driver.quit();
     }
 }

@@ -2,12 +2,9 @@ package gb.lesson6.tests;
 
 import gb.lesson6.pages.MainPageAuthorized;
 import gb.lesson6.pages.NewPostPage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class OperationsTests extends BaseTests{
     @BeforeEach
@@ -33,10 +30,25 @@ public class OperationsTests extends BaseTests{
 
     @Test
     void cannotPublishPostWithoutText(){
-        driver.navigate().refresh();
         NewPostPage np = new MainPageAuthorized(driver).
                 newPostClick().
                 setPostHeader("Text empty");
         np.buttonIsDisabled(np.getPublishButton());
+    }
+
+    @Test
+    void hoverOnProfile(){
+        new MainPageAuthorized(driver).
+                openMenu().
+                hoverOnProfileLink().
+                checkColor();
+    }
+
+    @Test
+    void openProfile() {
+        new MainPageAuthorized(driver).
+                openMenu().
+                clickOnProfileLink().
+                checkNamesOfProfileAndBlog(userName, diaryName);
     }
 }
