@@ -30,7 +30,6 @@ public class BaseTests {
 
     @AfterEach
     void tearDown() {
-        localStorage.clear();
         driver.quit();
     }
 }
