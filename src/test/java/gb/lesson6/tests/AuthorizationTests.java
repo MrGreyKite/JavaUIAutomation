@@ -11,9 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Epic("Тесты без предварительной авторизации")
 public class AuthorizationTests extends BaseTests {
@@ -47,10 +44,10 @@ public class AuthorizationTests extends BaseTests {
 
     @Feature("Регистрация")
     @Test
-    @DisplayName("Попытка регистрации")
+    @DisplayName("Попытка регистрации") //сломан для теста
     void registration(){
-        RegistrationPage rp = new MainPageWithoutAuthorization(driver).toRegister();
-        webDriverWait.until(ExpectedConditions.visibilityOf(rp.getButtonContinueRegistration()));
-        assertThat(driver.findElement(By.xpath("//h2")).getText()).isEqualTo("Создание аккаунта");
+        new MainPageWithoutAuthorization(driver).
+                toRegister().
+                checkTextAboutRegistration();
     }
 }
