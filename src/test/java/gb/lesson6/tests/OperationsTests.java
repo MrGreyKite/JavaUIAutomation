@@ -1,6 +1,7 @@
 package gb.lesson6.tests;
 
 import gb.lesson6.pages.MainPageAuthorized;
+import gb.lesson6.pages.MenuBlock;
 import gb.lesson6.pages.NewPostPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,9 +39,9 @@ public class OperationsTests extends BaseTests{
 
     @Test
     void hoverOnProfile(){
-        new MainPageAuthorized(driver).
-                openMenu().
-                hoverOnProfileLink().
+        MenuBlock mb = new MainPageAuthorized(driver).
+                openMenu();
+        mb.hoverOnLink(mb.getProfileLink()).
                 checkColor();
     }
 

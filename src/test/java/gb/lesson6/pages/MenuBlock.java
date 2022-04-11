@@ -1,5 +1,6 @@
 package gb.lesson6.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,18 +11,25 @@ public class MenuBlock extends BasePage{
         super(driver);
     }
 
+    public WebElement getProfileLink() {
+        return profileLink;
+    }
+
     @FindBy(xpath = "//a[@data-testid='sidebar-my-active-profile-link']")
     WebElement profileLink;
 
-    public MenuBlock hoverOnProfileLink(){
-        actions.moveToElement(profileLink).perform();
+    @Step("Навести курсор на ссылку")
+    public MenuBlock hoverOnLink(WebElement element){
+        actions.moveToElement(element).perform();
         return this;
     }
 
+    @Step("Проверить цвет ссылки")
     public void checkColor() {
         Assertions.assertEquals("rgba(222, 65, 58, 1)", profileLink.getCssValue("color"));
     }
 
+    @Step("Нажать на ссылку на профиль пользователя")
     public ProfilePage clickOnProfileLink(){
         profileLink.click();
         return new ProfilePage(driver);

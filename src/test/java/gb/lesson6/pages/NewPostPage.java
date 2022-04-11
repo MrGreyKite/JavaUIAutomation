@@ -1,5 +1,6 @@
 package gb.lesson6.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -35,28 +36,33 @@ public class NewPostPage extends BasePage{
     @FindBy(xpath = "//*[@class='privacy-settings']//div[contains(@class, 'blog-select__control')]")
     WebElement privacySelector;
 
+    @Step("Ввести заголовок поста")
     public NewPostPage setPostHeader(String text) {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(postTitleField));
         postTitleField.sendKeys(text);
         return this;
     }
 
+    @Step("Ввести текст поста")
     public NewPostPage setPostText(String text) {
         postTextArea.sendKeys(text);
         return this;
     }
 
+    @Step("Выбрать уровень приватности")
     public NewPostPage setPrivacyLevel(String level) {
         privacySelector.click();
         driver.findElement(By.id("react-select-2-option-" + level)).click();
         return this;
     }
 
+    @Step("Опубликовать пост")
     public BlogPage publish() {
         publishButton.click();
         return new BlogPage(driver);
     }
 
+    @Step("Проверить, что кнопка задисейблена")
     public void buttonIsDisabled(WebElement element){
         Assertions.assertFalse(element.isEnabled());
     }

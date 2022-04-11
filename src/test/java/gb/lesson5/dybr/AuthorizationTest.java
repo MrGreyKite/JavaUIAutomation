@@ -1,6 +1,8 @@
 package gb.lesson5.dybr;
 
 import gb.lesson5.BaseTest;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

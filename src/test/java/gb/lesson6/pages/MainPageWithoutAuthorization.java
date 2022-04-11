@@ -1,7 +1,7 @@
 package gb.lesson6.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,21 +31,25 @@ public class MainPageWithoutAuthorization extends BasePage{
         return new MainPageAuthorized(driver);
     }
 
+    @Step("Ввести email")
     public MainPageWithoutAuthorization enterEmail(String email){
         usernameAuthorizationField.sendKeys(email);
         return this;
     }
 
+    @Step("Ввести пароль")
     public MainPageWithoutAuthorization enterPassword(String password){
         passwordAuthorizationField.sendKeys(password);
         return this;
     }
 
+    @Step("Нажать кнопку входа")
     public MainPageAuthorized login(){
         loginButton.click();
         return new MainPageAuthorized(driver);
     }
 
+    @Step("Нажать кнопку регистрации")
     public RegistrationPage toRegister(){
         createAccButton.click();
         return new RegistrationPage(driver);
