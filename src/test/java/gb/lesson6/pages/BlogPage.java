@@ -1,5 +1,6 @@
 package gb.lesson6.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,12 +21,14 @@ public class BlogPage extends BasePage{
     @FindBy(xpath = "//div[@data-testid=\"blog-feed-control\"]")
     WebElement controlPanel;
 
+    @Step("Проверить, что пост существует")
     public void checkExistenceOfPost(String title){
         webDriverWait.until(ExpectedConditions.
                 visibilityOf(controlPanel));
         Assertions.assertTrue(posts.stream().anyMatch(p -> p.getText().equals(title)));
     }
 
+    @Step("Открыть пост в блоге")
     public PostViewPage openPost(String title) {
         WebElement post = posts.stream().filter(p -> p.getText().equals(title)).findFirst().orElse(null);
         if (post == null) throw new AssertionError();

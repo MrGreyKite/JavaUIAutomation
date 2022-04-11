@@ -3,10 +3,14 @@ package gb.lesson6.tests;
 import gb.lesson6.pages.MainPageAuthorized;
 import gb.lesson6.pages.MenuBlock;
 import gb.lesson6.pages.NewPostPage;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+@Epic("Различные операции при авторизованном состоянии")
 public class OperationsTests extends BaseTests{
     @BeforeEach
     void open(){
@@ -19,6 +23,8 @@ public class OperationsTests extends BaseTests{
     }
 
     @Test
+    @Feature("Публикация поста")
+    @DisplayName("Опубликовать пост - позитивный кейс - без тэгов")
     void publishAPost(){
         new MainPageAuthorized(driver).
                 newPostClick().
@@ -30,6 +36,8 @@ public class OperationsTests extends BaseTests{
     }
 
     @Test
+    @Feature("Публикация поста")
+    @DisplayName("Проверка невозможности опубликовать пост без текста")
     void cannotPublishPostWithoutText(){
         NewPostPage np = new MainPageAuthorized(driver).
                 newPostClick().
@@ -38,6 +46,8 @@ public class OperationsTests extends BaseTests{
     }
 
     @Test
+    @Feature("Профиль пользователя")
+    @DisplayName("Проверка цвета при наведении курсора на профиль")
     void hoverOnProfile(){
         MenuBlock mb = new MainPageAuthorized(driver).
                 openMenu();
@@ -46,10 +56,22 @@ public class OperationsTests extends BaseTests{
     }
 
     @Test
+    @Feature("Профиль пользователя")
+    @DisplayName("Проверка корректности открытия профиля")
     void openProfile() {
         new MainPageAuthorized(driver).
                 openMenu().
                 clickOnProfileLink().
                 checkNamesOfProfileAndBlog(userName, diaryName);
+    }
+
+    @Test
+    @Feature("Действия в меню")
+    @DisplayName("Проверка корректности разлогина")
+    void logoutFromMenu(){
+        new MainPageAuthorized(driver).
+                openMenu().
+                logout().
+                checkIntroText();
     }
 }

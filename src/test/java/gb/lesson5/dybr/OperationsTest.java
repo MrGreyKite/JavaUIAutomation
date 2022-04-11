@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
-public class OperationsTests extends BaseTest {
+public class OperationsTest extends BaseTest {
 
     @BeforeEach
     void setupDriver() {

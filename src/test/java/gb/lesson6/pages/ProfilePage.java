@@ -1,5 +1,6 @@
 package gb.lesson6.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ public class ProfilePage extends BasePage{
     @FindBy(className = "blog-title")
     WebElement blogName;
 
+    @Step("Проверить имя пользователя и название блога")
     public void checkNamesOfProfileAndBlog(String userName, String diaryName){
         webDriverWait.until(ExpectedConditions.visibilityOf(avatar));
         Assertions.assertAll(

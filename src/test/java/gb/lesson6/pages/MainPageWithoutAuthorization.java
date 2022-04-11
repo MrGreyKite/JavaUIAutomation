@@ -1,16 +1,24 @@
 package gb.lesson6.pages;
 
 import io.qameta.allure.Step;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 
 public class MainPageWithoutAuthorization extends BasePage{
     public MainPageWithoutAuthorization(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//form[@data-testid=\"login-form\"]")
+    protected WebElement loginForm;
 
     @FindBy(id = "username")
     protected WebElement usernameAuthorizationField;
@@ -23,6 +31,9 @@ public class MainPageWithoutAuthorization extends BasePage{
 
     @FindBy(xpath = "//button[@data-testid=\"create-account-button\"]")
     protected WebElement createAccButton;
+
+    @FindBy(xpath = "//h3[text()='Вход на Дыбр']")
+    protected WebElement introHeader;
 
     public MainPageAuthorized authorize(String email, String password){
         usernameAuthorizationField.sendKeys(email);
@@ -53,6 +64,15 @@ public class MainPageWithoutAuthorization extends BasePage{
     public RegistrationPage toRegister(){
         createAccButton.click();
         return new RegistrationPage(driver);
+    }
+
+    @Step("Проверка наличия интро текста над формой логина")
+    public void checkIntroText(){
+        webDriverWait.until(ExpectedConditions.visibilityOf(loginForm));
+        Assertions.assertAll(
+                () -> MatcherAssert.assertThat(introHeader, isDisplayed()),
+                () -> MatcherAssert.assertThat(loginButton, isDisplayed())
+        );
     }
 
 }

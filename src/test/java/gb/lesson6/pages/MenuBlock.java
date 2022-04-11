@@ -18,6 +18,9 @@ public class MenuBlock extends BasePage{
     @FindBy(xpath = "//a[@data-testid='sidebar-my-active-profile-link']")
     WebElement profileLink;
 
+    @FindBy(xpath = "//*[@data-testid='sidebar-logout-link']")
+    WebElement logoutLink;
+
     @Step("Навести курсор на ссылку")
     public MenuBlock hoverOnLink(WebElement element){
         actions.moveToElement(element).perform();
@@ -33,5 +36,11 @@ public class MenuBlock extends BasePage{
     public ProfilePage clickOnProfileLink(){
         profileLink.click();
         return new ProfilePage(driver);
+    }
+
+    @Step("Нажать на ссылку выхода из профиля")
+    public MainPageWithoutAuthorization logout(){
+        logoutLink.click();
+        return new MainPageWithoutAuthorization(driver);
     }
 }
