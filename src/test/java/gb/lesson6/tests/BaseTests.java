@@ -1,8 +1,11 @@
 package gb.lesson6.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.interactions.Actions;
@@ -30,6 +33,13 @@ public class BaseTests {
 
     @AfterEach
     void tearDown() {
+        addScreenshotAs("result.png");
         driver.quit();
     }
+
+    @Attachment(value = "{attachName}", type = "image/png")
+    public byte[] addScreenshotAs(String attachName){
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
 }
